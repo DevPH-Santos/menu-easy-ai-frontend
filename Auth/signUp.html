@@ -296,6 +296,13 @@
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        // Validação do CPF - verifica se tem exatamente 14 caracteres (formato completo: 000.000.000-00)
+        if (cpfInput.value.length !== 14) {
+            mostrarErro("O campo CPF está incompleto. Digite todos os 11 dígitos.");
+            cpfInput.focus();
+            return;
+        }
+
         if (confirmsenha.value !== senha.value) {
             mostrarErro("As senhas não coincidem.");
             senha.value = "";
