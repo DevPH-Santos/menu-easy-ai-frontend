@@ -115,9 +115,9 @@
       <nav class="flex items-center gap-2 md:gap-4">
 
         <a id="btnAuth"
-          class="hidden md:block bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-[#d35a1f] transition-colors shadow-lg shadow-orange-200"
+          class=" md:block bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-[#d35a1f] transition-colors shadow-lg shadow-orange-200"
           href="Auth/signIn.html">
-          Login / Criar Conta
+          Log In
         </a>
 
         <a id="btnAdmin" href="../admin/code_produto_.html"
@@ -555,7 +555,7 @@
     if (usuario) {
       const dadosUsuario = JSON.parse(usuario);
 
-      btnAuth.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">logout</span> Desconectar';
+      btnAuth.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">logout</span>';
       btnAuth.removeAttribute('href');
       btnAuth.style.cursor = 'pointer';
       btnAuth.addEventListener('click', () => {
