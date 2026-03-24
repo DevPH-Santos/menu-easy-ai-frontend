@@ -21,7 +21,7 @@
     rel="stylesheet" />
 
   <link rel="shortcut icon" href="./public/images/icon-hamburguer.ico" type="image/x-icon">
-  
+
   <style data-purpose="custom-theme">
     :root {
       --primary: #EE6B2A;
@@ -349,9 +349,11 @@
 
   <script data-purpose="interaction-logic">
 
+    const API = "https://menu-easy-ai-backend.onrender.com";
+
     async function getProdutosPorCaracteristica(caracteristica) {
       try {
-        const res = await fetch(`http://localhost:3000/api/produtos/caracteristica/${caracteristica}`);
+        const res = await fetch(`${API}/api/produtos/caracteristica/${caracteristica}`);
         const data = await res.json();
         return data;
       } catch (err) {
@@ -450,7 +452,7 @@
     // Resolver data-id, descrição e imagem dos cards estáticos pelo banco
     async function resolverIdsProdutosEstaticos() {
       try {
-        const res = await fetch('http://localhost:3000/api/produtos');
+        const res = await fetch(`${API}/api/produtos`);
         const produtos = await res.json();
         const mapa = {};
         produtos.forEach(p => { mapa[p.nome_prod] = p; });
@@ -477,6 +479,7 @@
 
   <!-- ===================== RECOMENDAÇÕES IA ===================== -->
   <script>
+
     async function carregarRecomendacoesIA(cpf) {
       const container = document.getElementById('lista-recomendacoesIA');
       const loading = document.getElementById('ia-loading');
@@ -501,7 +504,7 @@
 
         if (!ids || ids.length === 0) throw new Error('Sem recomendações');
 
-        const resProdutos = await fetch('http://localhost:3000/api/produtos');
+        const resProdutos = await fetch(`${API}/api/produtos`);
         const todosProdutos = await resProdutos.json();
 
         const produtosRec = ids.map(id => todosProdutos.find(p => p.pk_id_prod == id)).filter(Boolean);
@@ -580,7 +583,7 @@
       });
 
       // Abrir pop só se não tiver preferências salvas no banco
-      fetch(`http://localhost:3000/api/usuarios/${dadosUsuario.pk_cpf_usuario}/preferencias`)
+      fetch(`${API}/api/usuarios/${dadosUsuario.pk_cpf_usuario}/preferencias`)
         .then(r => r.json())
         .then(data => {
           if (!data.tem_preferencias) {
@@ -807,7 +810,7 @@
         meal_preferences: formData.getAll('meal_preferences')
       };
       try {
-        await fetch('http://localhost:3000/api/usuarios/preferencias', {
+        await fetch(`${API}/api/usuarios/preferencias`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)

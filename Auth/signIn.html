@@ -117,7 +117,9 @@
                         Login </button>
 
                     <!-- Mensagem de erro -->
-<div id="erroLogin" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3 rounded-xl text-center"></div>
+                    <div id="erroLogin"
+                        class="hidden bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3 rounded-xl text-center">
+                    </div>
                 </form>
 
                 <!-- Footer Link -->
@@ -167,22 +169,21 @@
 
     const form = document.querySelector("form");
 
+    const API = "https://menu-easy-ai-backend.onrender.com";
+
     form.addEventListener("submit", async (e) => {
-        e.preventDefault(); // impede reload da página
+        e.preventDefault();
 
         const cpf = document.getElementById("cpfInput").value;
         const senha = document.getElementById("senha").value;
 
         try {
-            const response = await fetch("http://localhost:3000/api/usuarios/login", {
+            const response = await fetch(`${API}/api/usuarios/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    cpf: cpf,
-                    senha: senha
-                })
+                body: JSON.stringify({ cpf, senha })
             });
 
             const data = await response.json();
@@ -192,10 +193,7 @@
                 return;
             }
 
-            // ✅ Salvar usuário na sessão
             localStorage.setItem("usuario", JSON.stringify(data.usuario));
-
-            // ✅ Redirecionar para a página principal
             window.location.href = "../index.html";
 
         } catch (error) {

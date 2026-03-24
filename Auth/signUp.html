@@ -291,11 +291,13 @@
 
     }
 
+    const API = "https://menu-easy-ai-backend.onrender.com";
+
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         if (confirmsenha.value !== senha.value) {
-            mostrarErro("As senhas não coincidem. Verifique e tente novamente.");
+            mostrarErro("As senhas não coincidem.");
             senha.value = "";
             confirmsenha.value = "";
             return;
@@ -303,7 +305,7 @@
 
         let idadeCalculada = 0;
         if (dataInput.value.length === 10) {
-            idadeCalculada = calcIdade(dataInput.value)
+            idadeCalculada = calcIdade(dataInput.value);
         }
 
         const data = {
@@ -313,7 +315,7 @@
         };
 
         try {
-            const response = await fetch("http://127.0.0.1:3000/api/usuarios", {
+            const response = await fetch(`${API}/api/usuarios`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
@@ -326,7 +328,6 @@
                 return;
             }
 
-            // ✅ Redirecionar para login após cadastro com sucesso
             window.location.href = "./signIn.html";
 
         } catch (err) {
