@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Delícia Lanche - O sabor que você merece</title>
+  <!-- Tailwind CSS CDN with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: Inter and Poppins -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Poppins:wght@700;800&amp;display=swap"
+    rel="stylesheet" />
+
+  <link rel="shortcut icon" href="./public/images/icon-hamburguer.ico" type="image/x-icon">
+  
+  <style data-purpose="custom-theme">
+    :root {
+      --primary: #EE6B2A;
+      --primary-hover: #d35a1f;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+
+    h1,
+    h2,
+    .logo {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .active-tab {
+      color: var(--primary);
+    }
+
+    .card-levitate {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-levitate:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(238, 107, 42, 0.2);
+    }
+
+    .btn-scale {
+      transition: transform 0.1s ease;
+    }
+
+    .btn-scale:active {
+      transform: scale(1.02);
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#EE6B2A',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="pt-16">
+  <!-- BEGIN: Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md h-16 flex items-center px-4 md:px-8">
+
+    <div class="max-w-7xl mx-auto w-full flex items-center justify-between">
+
+      <div class="flex items-center gap-3 text-primary">
+        <a href="index.html" class="flex items-center gap-3 text-primary">
+          <img src="./public/logo.png" alt="Logo" class="h-11 w-auto">
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-2 md:gap-4">
+
+        <a id="btnAuth"
+          class="hidden md:block bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-[#d35a1f] transition-colors shadow-lg shadow-orange-200"
+          href="Auth/signIn.html">
+          Login / Criar Conta
+        </a>
+
+        <a id="btnAdmin" href="../admin/code_produto_.html"
+          class="hidden bg-primary text-white px-4 py-2 rounded-full font-semibold hover:bg-[#d35a1f] transition-colors shadow-lg shadow-orange-200">
+          ⚙️ Admin
+        </a>
+
+        <a href="carrinho.html" class="relative bg-gray-100 p-2 rounded-full hover:shadow-md transition-all">
+          <span class="text-xl">🛒</span>
+          <span id="badgeCarrinho"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-white">0</span>
+        </a href="#">
+
+        <a href="#" id="avatarBtn"
+          class="w-10 h-10 bg-gray-100 rounded-full hover:shadow-md transition-all flex items-center justify-center">
+          <span class="material-symbols-outlined" style="font-size: 22px;">person</span>
+        </a href="#">
+
+    </div>
+
+
+  </header>
+  <!-- END: Navigation -->
+  <!-- BEGIN: Hero Section -->
+
+  <section class="relative h-[60vh] flex items-center justify-center overflow-hidden bg-primary">
+    <!-- Abstract SVG Background -->
+    <div class="absolute inset-0 opacity-20 pointer-events-none">
+
+      <svg class="w-full h-full" viewbox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M45.7,-78.3C58.9,-71.1,69.1,-58.5,77.4,-44.7C85.7,-30.9,92.1,-15.5,92.4,0.1C92.6,15.7,86.7,31.4,77.5,45.2C68.3,59,55.9,70.9,41.4,78.2C26.9,85.5,10.4,88.2,-5.7,86.3C-21.8,84.4,-37.6,77.8,-51.5,68.2C-65.4,58.6,-77.4,45.9,-84.6,31.2C-91.8,16.5,-94.1,-0.2,-91.7,-16.3C-89.3,-32.4,-82.3,-47.9,-70.8,-58.5C-59.3,-69.1,-43.3,-74.8,-28.5,-80.6C-13.7,-86.4,0,-92.3,14.5,-89.2C29.1,-86.1,45.7,-78.3,45.7,-78.3Z"
+          fill="#000" transform="translate(200 200)"></path>
+      </svg>
+
+    </div>
+
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
+
+    <div class="relative z-10 text-center px-4">
+
+      <h1 class="text-white text-4xl md:text-[3.5rem] leading-tight mb-4 drop-shadow-lg">
+        O cardápio interativo <br class="hidden md:block" /> na palma da mão
+      </h1>
+      <p class="text-white text-lg md:text-[1.3rem] opacity-90 drop-shadow-md">
+        Peça agora e receba em minutos
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- END: Hero Section -->
+  <!-- BEGIN: Category Tabs -->
+  <nav class="sticky top-16 bg-white shadow-sm z-40 overflow-hidden">
+
+    <div
+      class="max-w-7xl mx-auto flex items-center justify-start md:justify-center overflow-x-auto hide-scrollbar whitespace-nowrap px-6 py-4 gap-8 md:gap-14"
+      id="category-tabs">
+
+      <!-- <a class="tab-link text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer active-tab"
+        data-target="all" href="#section-all">TODOS</a> -->
+
+      <a class="tab-link no-underline text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer"
+        data-target="recomendacoesIA" href="#section-recomendacoesIA">✨IA</a>
+
+      <a class="tab-link no-underline text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer"
+        data-target="lanches" href="#section-lanches">🍔 LANCHES</a>
+
+      <a class="tab-link no-underline text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer"
+        data-target="porcoes" href="#section-porcoes">🍟 PORÇÕES</a>
+
+      <a class="tab-link no-underline text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer"
+        data-target="pizzas" href="#section-pizzas">🍕 PIZZAS</a>
+
+      <a class="tab-link no-underline text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer"
+        data-target="massas" href="#section-massas">🍝 MASSAS</a>
+
+      <a class="tab-link no-underline text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer"
+        data-target="pratos" href="#section-pratos">🍽️ PRATOS</a>
+
+      <a class="tab-link no-underline text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer"
+        data-target="bebidas" href="#section-bebidas">🥤 BEBIDAS</a>
+
+      <a class="tab-link no-underline text-sm md:text-base font-bold tracking-wider text-gray-500 hover:text-primary transition-colors cursor-pointer"
+        data-target="sobremesas" href="#section-sobremesas">🍦 SOBREMESAS</a>
+
+
+    </div>
+
+  </nav>
+
+  <!-- END: Category Tabs -->
+  <!-- BEGIN: Menu Content -->
+
+  <main class="max-w-7xl mx-auto px-4 py-12 space-y-24">
+
+    <!-- Section: Recomendações IA -->
+    <section class="menu-section scroll-mt-32" id="section-recomendacoesIA">
+
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <span class="p-2 bg-orange-100 rounded-lg">✨</span> Recomendações IA
+      </h2>
+
+      <div id="lista-recomendacoesIA" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <!-- Preenchido dinamicamente pela IA -->
+        <div id="ia-loading" class="col-span-full text-center py-12 text-slate-400">
+          <span class="material-symbols-outlined text-5xl block mb-3">psychology</span>
+          <p class="font-semibold">Faça login para ver recomendações personalizadas ✨</p>
+        </div>
+      </div>
+    </section>
+
+    <div id="lista-recomendacoesIA-static" class="hidden"></div>
+
+    <!-- Section: Lanches -->
+    <section class="menu-section scroll-mt-32" id="section-lanches">
+
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <span class="p-2 bg-orange-100 rounded-lg">🍔</span> Lanches Artesanais
+      </h2>
+
+      <div id="lista-lanches" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      </div>
+    </section>
+
+    <!-- Section: Porções -->
+    <section class="menu-section scroll-mt-32" id="section-porcoes">
+
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <span class="p-2 bg-yellow-100 rounded-lg">🍟</span> Porções
+      </h2>
+
+      <div id="lista-porcoes" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      </div>
+    </section>
+
+    <!-- Section: Pizzas -->
+    <section class="menu-section scroll-mt-32" id="section-pizzas">
+
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <span class="p-2 bg-yellow-100 rounded-lg">🍕</span> Pizzas
+      </h2>
+
+      <div id="lista-pizzas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      </div>
+    </section>
+
+    <!-- Section: Massas -->
+    <section class="menu-section scroll-mt-32" id="section-massas">
+
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <span class="p-2 bg-red-100 rounded-lg">🍝</span> Massas
+      </h2>
+
+      <div id="lista-massas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      </div>
+    </section>
+
+    <!-- Section: Pratos e Saladas -->
+    <section class="menu-section scroll-mt-32" id="section-pratos">
+
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <span class="p-2 bg-yellow-100 rounded-lg">🍽️</span> Pratos e Saladas
+      </h2>
+
+      <div id="lista-pratos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      </div>
+    </section>
+
+    <!-- Section: Bebidas -->
+    <section class="menu-section scroll-mt-32" id="section-bebidas">
+
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <span class="p-2 bg-blue-100 rounded-lg">🥤</span> Bebidas Geladas
+      </h2>
+
+      <div id="lista-bebidas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      </div>
+    </section>
+
+    <!-- Section: Sobremesas -->
+    <section class="menu-section scroll-mt-32" id="section-sobremesas">
+
+      <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+        <span class="p-2 bg-pink-100 rounded-lg">🍦</span> Sobremesas
+      </h2>
+
+      <div id="lista-sobremesas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- END: Menu Content -->
+  <!-- BEGIN: Footer -->
+
+  <footer class="bg-white border-t mt-20 py-12">
+
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+
+      <div>
+        <div class="flex items-center gap-3 text-primary">
+          <img src="./public/logo.png" alt="Logo" class="h-11 w-auto">
+        </div>
+        <p class="text-gray-500 text-sm">Qualidade artesanal entregue onde você estiver. O melhor lanche da
+          cidade desde 2010.</p>
+      </div>
+
+      <div>
+        <h4 class="font-bold mb-4">Links Rápidos</h4>
+        <ul class="text-gray-500 space-y-2 text-sm">
+          <li><a class="hover:text-primary" href="index.html">Início</a></li>
+          <li><a class="hover:text-primary" href="carrinho.html">Carrinho</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="text-center text-gray-400 text-xs mt-12">
+      © 2026 Menu EasyAI. Todos os direitos reservados.
+    </div>
+
+  </footer>
+
+  <!-- END: Footer -->
+  <!-- BEGIN: Scripts -->
+
+  <script data-purpose="interaction-logic">
+
+    async function getProdutosPorCaracteristica(caracteristica) {
+      try {
+        const res = await fetch(`http://localhost:3000/api/produtos/caracteristica/${caracteristica}`);
+        const data = await res.json();
+        return data;
+      } catch (err) {
+        console.error('Erro ao buscar produtos:', err);
+        return [];
+      }
+    }
+
+
+    // Intersection Observer for Tab highlighting
+    const sections = document.querySelectorAll('.menu-section');
+    const navLinks = document.querySelectorAll('.tab-link');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-10% 0px -80% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id').replace('section-', '');
+          navLinks.forEach(link => {
+            link.classList.remove('active-tab');
+            if (link.getAttribute('data-target') === id) {
+              link.classList.add('active-tab');
+              // Auto-scroll the tabs container to keep active tab visible
+              link.parentElement.scrollTo({
+                left: link.offsetLeft - (link.parentElement.offsetWidth / 2) + (link.offsetWidth / 2),
+                behavior: 'smooth'
+              });
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+
+    // Handle "TODOS" tab
+    window.addEventListener('scroll', () => {
+      // Toggle first tab active if at top
+      if (window.scrollY < 300) {
+        navLinks.forEach(l => l.classList.remove('active-tab'));
+        navLinks[0].classList.add('active-tab');
+      }
+    });
+
+    // Fade-in animation on scroll
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('article').forEach(card => fadeObserver.observe(card));
+
+
+    async function carregarProdutosPorCategoria(categoria, containerId) {
+      const produtos = await getProdutosPorCaracteristica(categoria);
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = ''; // limpa antes de renderizar
+
+      produtos.forEach(produto => {
+        const imgSrc = produto.img_prod || 'https://via.placeholder.com/150';
+        container.innerHTML += `
+        <article data-id="${produto.pk_id_prod}" data-nome="${produto.nome_prod}" data-preco="${produto.preco_prod}" data-desc="${produto.descricao_prod || ''}" data-img="${imgSrc}" class="bg-white rounded-2xl overflow-hidden shadow-sm card-levitate flex flex-col">
+        <div class="h-[220px] bg-orange-50 flex items-center justify-center p-8">
+          <img alt="${produto.nome_prod}" class="w-full h-full object-contain"
+            src="${imgSrc}" onerror="this.src='https://via.placeholder.com/150'" />
+        </div>
+        <div class="p-6 flex-grow">
+          <h3 class="text-xl font-bold mb-2">${produto.nome_prod}</h3>
+          <p class="text-gray-500 text-sm mb-4">${produto.descricao_prod || ''}</p>
+          <span class="text-2xl font-extrabold text-primary block mb-6">R$ ${Number(produto.preco_prod).toFixed(2)}</span>
+        </div>
+        <button class="w-full py-4 bg-primary text-white font-bold btn-scale">Adicionar 🛒</button>
+      </article>
+    `;
+      });
+    }
+
+    // Chama a função para listar os lanches
+    carregarProdutosPorCategoria('lanche', 'lista-lanches');
+    carregarProdutosPorCategoria('entrada', 'lista-porcoes');
+    carregarProdutosPorCategoria('pizza', 'lista-pizzas');
+    carregarProdutosPorCategoria('massa', 'lista-massas');
+    carregarProdutosPorCategoria('prato_principal', 'lista-pratos');
+    carregarProdutosPorCategoria('bebida', 'lista-bebidas');
+    carregarProdutosPorCategoria('sobremesa', 'lista-sobremesas');
+
+    // Resolver data-id, descrição e imagem dos cards estáticos pelo banco
+    async function resolverIdsProdutosEstaticos() {
+      try {
+        const res = await fetch('http://localhost:3000/api/produtos');
+        const produtos = await res.json();
+        const mapa = {};
+        produtos.forEach(p => { mapa[p.nome_prod] = p; });
+        document.querySelectorAll('article[data-nome]:not([data-id])').forEach(article => {
+          const p = mapa[article.dataset.nome];
+          if (!p) return;
+          article.dataset.id = p.pk_id_prod;
+          article.dataset.desc = p.descricao_prod || '';
+          article.dataset.img = p.img_prod || '';
+          const descEl = article.querySelector('p.text-gray-500');
+          if (descEl) descEl.textContent = p.descricao_prod || '';
+          if (p.img_prod) {
+            const imgEl = article.querySelector('img');
+            if (imgEl) imgEl.src = p.img_prod;
+          }
+        });
+      } catch (e) {
+        console.warn('Não foi possível resolver IDs dos produtos estáticos:', e);
+      }
+    }
+    resolverIdsProdutosEstaticos();
+  </script>
+
+
+  <!-- ===================== RECOMENDAÇÕES IA ===================== -->
+  <script>
+    async function carregarRecomendacoesIA(cpf) {
+      const container = document.getElementById('lista-recomendacoesIA');
+      const loading = document.getElementById('ia-loading');
+
+      if (loading) loading.innerHTML = `
+        <span class="material-symbols-outlined text-5xl block mb-3 animate-spin">refresh</span>
+        <p class="font-semibold text-primary">Gerando recomendações personalizadas...</p>`;
+
+      try {
+        const hora = new Date().getHours();
+        const clima = localStorage.getItem('clima_atual') || 'nublado';
+
+        const resIA = await fetch('http://localhost:5000/recomendar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cpf, hora, clima, pessoas: 1, promocao: 0 })
+        });
+
+        if (!resIA.ok) throw new Error('IA indisponível');
+        const dataIA = await resIA.json();
+        const ids = dataIA.recomendacoes;
+
+        if (!ids || ids.length === 0) throw new Error('Sem recomendações');
+
+        const resProdutos = await fetch('http://localhost:3000/api/produtos');
+        const todosProdutos = await resProdutos.json();
+
+        const produtosRec = ids.map(id => todosProdutos.find(p => p.pk_id_prod == id)).filter(Boolean);
+        if (produtosRec.length === 0) throw new Error('Produtos não encontrados');
+
+        if (loading) loading.remove();
+
+        const cards = produtosRec.map(p => {
+          const imgSrc = p.img_prod || 'https://via.placeholder.com/150';
+          return `
+          <article data-id="${p.pk_id_prod}" data-nome="${p.nome_prod}" data-preco="${p.preco_prod}"
+            data-desc="${p.descricao_prod || ''}" data-img="${imgSrc}"
+            class="bg-white rounded-2xl overflow-hidden shadow-sm card-levitate flex flex-col">
+            <div class="h-[220px] bg-orange-50 flex items-center justify-center p-8">
+              <img alt="${p.nome_prod}" class="w-full h-full object-contain"
+                src="${imgSrc}" onerror="this.src='https://via.placeholder.com/150'" />
+            </div>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold mb-2">${p.nome_prod}</h3>
+              <p class="text-gray-500 text-sm mb-4">${p.descricao_prod || ''}</p>
+              <span class="text-2xl font-extrabold text-primary block mb-6">R$ ${Number(p.preco_prod).toFixed(2)}</span>
+            </div>
+            <button class="w-full py-4 bg-primary text-white font-bold btn-scale hover:bg-[#d35a1f] transition-all">
+              Adicionar 🛒
+            </button>
+          </article>
+        `;
+        }).join('');
+
+        container.insertAdjacentHTML('beforeend', cards);
+
+      } catch (e) {
+        console.warn('IA indisponível:', e.message);
+        if (loading) loading.innerHTML = `
+          <span class="material-symbols-outlined text-5xl block mb-3">sentiment_neutral</span>
+          <p class="font-semibold text-slate-400">IA indisponível no momento. Explore o cardápio! 🍔</p>`;
+      }
+    }
+  </script>
+
+  <script>
+    // botão auth
+    const btnAuth = document.getElementById('btnAuth');
+    const usuario = localStorage.getItem('usuario');
+
+    const btnAdmin = document.getElementById('btnAdmin');
+
+    if (usuario) {
+      const dadosUsuario = JSON.parse(usuario);
+
+      btnAuth.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;">logout</span> Desconectar';
+      btnAuth.removeAttribute('href');
+      btnAuth.style.cursor = 'pointer';
+      btnAuth.addEventListener('click', () => {
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('carrinho');
+        window.location.reload();
+      });
+
+      // Cor aleatória no avatar
+      const cores = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#1abc9c', '#3498db', '#9b59b6', '#e91e63'];
+      const cor = cores[Math.floor(Math.random() * cores.length)];
+      const avatar = document.getElementById('avatarBtn');
+      avatar.style.backgroundColor = cor;
+      avatar.querySelector('span').style.filter = 'brightness(0) invert(1)';
+
+      // Mostrar botão admin se for administrador
+      if (dadosUsuario.admin_usuario == 1) {
+        btnAdmin.classList.remove('hidden');
+      }
+
+      // Avatar abre preferências
+      document.getElementById('avatarBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        abrirPreferencias();
+      });
+
+      // Abrir pop só se não tiver preferências salvas no banco
+      fetch(`http://localhost:3000/api/usuarios/${dadosUsuario.pk_cpf_usuario}/preferencias`)
+        .then(r => r.json())
+        .then(data => {
+          if (!data.tem_preferencias) {
+            setTimeout(() => abrirPreferencias(), 500);
+          }
+        })
+        .catch(() => { });
+
+      // Carregar recomendações da IA
+      carregarRecomendacoesIA(dadosUsuario.pk_cpf_usuario);
+
+    } else {
+      btnAuth.textContent = 'Login / Criar Conta';
+      btnAuth.setAttribute('href', 'Auth/signIn.html');
+    }
+
+    // Scroll suave nas tabs
+    function scrollSuave(destino) {
+      const inicio = window.scrollY;
+      const alvo = destino.getBoundingClientRect().top + window.scrollY - 120;
+      const distancia = alvo - inicio;
+      const duracao = 600;
+      let startTime = null;
+
+      function easeInOut(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      }
+
+      function animar(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progresso = Math.min((timestamp - startTime) / duracao, 1);
+        window.scrollTo(0, inicio + distancia * easeInOut(progresso));
+        if (progresso < 1) requestAnimationFrame(animar);
+      }
+
+      requestAnimationFrame(animar);
+    }
+
+    document.querySelectorAll('.tab-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').replace('#', '');
+        const section = document.getElementById(targetId);
+        if (section) scrollSuave(section);
+      });
+    });
+  </script>
+
+
+  <!-- MODAL PREFERÊNCIAS -->
+  <div id="modalPreferencias"
+    class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
+
+      <div
+        class="sticky top-0 bg-white px-8 pt-8 pb-4 border-b border-slate-100 flex justify-between items-center z-10">
+        <div>
+          <h1 class="text-2xl font-black">Nos fale suas preferências</h1>
+          <p class="text-slate-500 text-sm mt-1">Para gerarmos recomendações personalizadas com IA</p>
+        </div>
+        <button onclick="fecharPreferencias()" class="text-slate-400 hover:text-slate-700 ml-4">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+      </div>
+
+      <form id="preferencesForm" class="px-8 py-6 space-y-8">
+
+        <!-- TIPOS DE COMIDA -->
+        <section>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-primary">favorite</span>
+            <h2 class="text-lg font-bold">Tipos de comida favoritos</h2>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <label class="cursor-pointer">
+              <input class="peer sr-only" name="food_type" type="checkbox" value="beef">
+              <div
+                class="p-4 bg-white rounded-xl border-2 border-slate-100 peer-checked:border-primary peer-checked:bg-orange-50 transition-all">
+                <p class="font-bold text-sm">🥩 Carne</p>
+                <p class="text-xs text-slate-500">Steaks</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input class="peer sr-only" name="food_type" type="checkbox" value="chicken">
+              <div
+                class="p-4 bg-white rounded-xl border-2 border-slate-100 peer-checked:border-primary peer-checked:bg-orange-50 transition-all">
+                <p class="font-bold text-sm">🍗 Frango</p>
+                <p class="text-xs text-slate-500">Grelhado ou frito</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input class="peer sr-only" name="food_type" type="checkbox" value="pasta">
+              <div
+                class="p-4 bg-white rounded-xl border-2 border-slate-100 peer-checked:border-primary peer-checked:bg-orange-50 transition-all">
+                <p class="font-bold text-sm">🍝 Massas</p>
+                <p class="text-xs text-slate-500">Italiano</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input class="peer sr-only" name="food_type" type="checkbox" value="burgers">
+              <div
+                class="p-4 bg-white rounded-xl border-2 border-slate-100 peer-checked:border-primary peer-checked:bg-orange-50 transition-all">
+                <p class="font-bold text-sm">🍔 Hambúrguer</p>
+                <p class="text-xs text-slate-500">Artesanal</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input class="peer sr-only" name="food_type" type="checkbox" value="salads">
+              <div
+                class="p-4 bg-white rounded-xl border-2 border-slate-100 peer-checked:border-primary peer-checked:bg-orange-50 transition-all">
+                <p class="font-bold text-sm">🥗 Saladas</p>
+                <p class="text-xs text-slate-500">Comidas leves</p>
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input class="peer sr-only" name="food_type" type="checkbox" value="fish">
+              <div
+                class="p-4 bg-white rounded-xl border-2 border-slate-100 peer-checked:border-primary peer-checked:bg-orange-50 transition-all">
+                <p class="font-bold text-sm">🐟 Peixe</p>
+                <p class="text-xs text-slate-500">Frutos do mar</p>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <!-- RESTRIÇÕES -->
+        <section>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-primary">info</span>
+            <h2 class="text-lg font-bold">Restrições alimentares</h2>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <label><input class="sr-only peer" type="checkbox" name="dietary_restrictions" value="lactose">
+              <div
+                class="px-4 py-3 bg-white border-2 border-slate-100 rounded-xl peer-checked:border-primary peer-checked:bg-orange-50 cursor-pointer transition-all text-sm font-medium">
+                Intolerante à lactose</div>
+            </label>
+            <label><input class="sr-only peer" type="checkbox" name="dietary_restrictions" value="gluten">
+              <div
+                class="px-4 py-3 bg-white border-2 border-slate-100 rounded-xl peer-checked:border-primary peer-checked:bg-orange-50 cursor-pointer transition-all text-sm font-medium">
+                Sem glúten</div>
+            </label>
+            <label><input class="sr-only peer" type="checkbox" name="dietary_restrictions" value="vegan">
+              <div
+                class="px-4 py-3 bg-white border-2 border-slate-100 rounded-xl peer-checked:border-primary peer-checked:bg-orange-50 cursor-pointer transition-all text-sm font-medium">
+                Vegano</div>
+            </label>
+            <label><input class="sr-only peer" type="checkbox" name="dietary_restrictions" value="vegetarian">
+              <div
+                class="px-4 py-3 bg-white border-2 border-slate-100 rounded-xl peer-checked:border-primary peer-checked:bg-orange-50 cursor-pointer transition-all text-sm font-medium">
+                Vegetariano</div>
+            </label>
+            <label><input class="sr-only peer" type="checkbox" name="dietary_restrictions" value="no_spicy">
+              <div
+                class="px-4 py-3 bg-white border-2 border-slate-100 rounded-xl peer-checked:border-primary peer-checked:bg-orange-50 cursor-pointer transition-all text-sm font-medium">
+                Sem comida picante</div>
+            </label>
+          </div>
+        </section>
+
+        <!-- PREFERÊNCIAS -->
+        <section>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="material-symbols-outlined text-primary">settings_heart</span>
+            <h2 class="text-lg font-bold">Preferências</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <label
+              class="flex items-center p-4 bg-white rounded-xl border-2 border-slate-100 hover:border-primary cursor-pointer transition-all">
+              <input class="mr-3 accent-primary" type="checkbox" name="meal_preferences" value="light_meals"> Preferir
+              refeições leves
+            </label>
+            <label
+              class="flex items-center p-4 bg-white rounded-xl border-2 border-slate-100 hover:border-primary cursor-pointer transition-all">
+              <input class="mr-3 accent-primary" type="checkbox" name="meal_preferences" value="fast_meals"> Preferir
+              refeições rápidas
+            </label>
+            <label
+              class="flex items-center p-4 bg-white rounded-xl border-2 border-slate-100 hover:border-primary cursor-pointer transition-all">
+              <input class="mr-3 accent-primary" type="checkbox" name="meal_preferences" value="cheap_meals"> Preferir
+              refeições baratas
+            </label>
+
+          </div>
+        </section>
+
+        <div class="pb-2">
+          <button type="submit"
+            class="w-full py-4 bg-primary text-white font-bold rounded-xl hover:bg-[#d35a1f] transition flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined">auto_awesome</span>
+            Gerar recomendações com IA
+          </button>
+          <p class="text-center text-sm text-slate-400 mt-3">Leva menos de 10 segundos</p>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <!-- FIM MODAL PREFERÊNCIAS -->
+
+  <script>
+    function abrirPreferencias() {
+      document.getElementById('modalPreferencias').classList.remove('hidden');
+    }
+    function fecharPreferencias() {
+      document.getElementById('modalPreferencias').classList.add('hidden');
+      // Marcar que já viu as preferências
+      const usuario = localStorage.getItem('usuario');
+      if (usuario) {
+        const dados = JSON.parse(usuario);
+        dados.preferencias_vistas = true;
+        localStorage.setItem('usuario', JSON.stringify(dados));
+      }
+    }
+
+    document.getElementById('preferencesForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+      const data = {
+        cpf: usuario.pk_cpf_usuario,
+        food_type: formData.getAll('food_type'),
+        dietary_restrictions: formData.getAll('dietary_restrictions'),
+        meal_preferences: formData.getAll('meal_preferences')
+      };
+      try {
+        await fetch('http://localhost:3000/api/usuarios/preferencias', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      } catch (err) {
+        console.error('Erro ao salvar preferências:', err);
+      }
+      fecharPreferencias();
+    });
+  </script>
+
+
+
+  <script>
+    // =====================
+    // CARRINHO
+    // =====================
+    function getCarrinho() {
+      return JSON.parse(localStorage.getItem('carrinho') || '[]');
+    }
+    function salvarCarrinho(c) {
+      localStorage.setItem('carrinho', JSON.stringify(c));
+    }
+    function atualizarBadge() {
+      const total = getCarrinho().reduce((acc, i) => acc + i.quantidade, 0);
+      const badge = document.getElementById('badgeCarrinho');
+      badge.textContent = total;
+      badge.style.display = total === 0 ? 'none' : 'flex';
+    }
+    function adicionarAoCarrinho(produto) {
+      const carrinho = getCarrinho();
+      const existente = carrinho.find(i => i.nome === produto.nome);
+      if (existente) {
+        existente.quantidade++;
+      } else {
+        carrinho.push({ ...produto, quantidade: 1 });
+      }
+      salvarCarrinho(carrinho);
+      atualizarBadge();
+      const badge = document.getElementById('badgeCarrinho');
+      badge.style.transform = 'scale(1.4)';
+      setTimeout(() => badge.style.transform = 'scale(1)', 200);
+    }
+
+    // Delegação de eventos
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const article = btn.closest('article[data-nome]');
+      if (!article) return;
+      adicionarAoCarrinho({
+        id: article.dataset.id ? parseInt(article.dataset.id) : null,
+        nome: article.dataset.nome,
+        preco: parseFloat(article.dataset.preco),
+        desc: article.dataset.desc || '',
+        imagem: article.dataset.img || ''
+      });
+    });
+
+    atualizarBadge();
+  </script>
+
+</body>
+
+</html>

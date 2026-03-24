@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login - Menu EasyAI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+
+    <link rel="shortcut icon" href="../public/images/icon-hamburguer.ico" type="image/x-icon">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+    <div class="relative flex min-h-screen flex-col items-center justify-center p-4">
+        <!-- Navigation Bar (Modified from Component) -->
+
+        <!--<div class="fixed top-0 left-0 right-0 z-50 px-4 md:px-20 lg:px-40 py-5">
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 bg-background-light/80 backdrop-blur-md px-6 py-3 rounded-xl shadow-sm">
+                <div class="flex items-center gap-3 text-primary">
+                    <span aria-hidden="true" class="material-symbols-outlined text-3xl font-bold">restaurant_menu</span>
+                    <h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">Menu
+                        EasyAI</h2>
+                </div>
+                <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+                    <div class="flex items-center gap-9">
+                        <a class="text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                            href="#">Cardápio</a>
+                        <a class="text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                            href="#">Recomendações</a>
+                        <a class="text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                            href="#">Meus Pedidos</a>
+                    </div>
+                </div>
+            </header>
+        </div> -->
+
+        <!-- Main Login Card -->
+        <main class="w-full max-w-[480px] mt-20">
+            <div class="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-xl shadow-xl border border-primary/10">
+                <!-- Branding & Welcome -->
+                <div class="flex flex-col items-center mb-10">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-4xl">robot_2</span>
+                    </div>
+                    <h1 class="text-slate-900 dark:text-slate-100 text-3xl font-bold text-center mb-2">Bem-vindo de
+                        volta!</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg text-center font-medium">Por favor, insira seus
+                        dados para acessar o menu.</p>
+                </div>
+                <!-- Login Form -->
+                <form class="space-y-6" method="post" action="">
+                    <div>
+                        <label class="block text-slate-900 dark:text-slate-100 text-lg font-semibold mb-2"
+                            for="cpf">CPF</label>
+                        <div class="relative group">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary">mail</span>
+                            <input
+                                class="w-full pl-12 pr-4 py-4 rounded-xl border border-primary/20 bg-background-light dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-lg"
+                                id="cpfInput" placeholder="123.456.789-10" required="" type="text" />
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-slate-900 dark:text-slate-100 text-lg font-semibold mb-2"
+                            for="password">Senha</label>
+                        <div class="relative group">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary">lock</span>
+                            <input
+                                class="w-full pl-12 pr-4 py-4 rounded-xl border border-primary/20 bg-background-light dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-lg"
+                                id="senha" placeholder="••••••••" required="" type="password" />
+                            <button type="button" onclick="toggleSenha()"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                                <span id="iconeSenha" class="material-symbols-outlined text-xl">
+                                    visibility </span></button>
+                        </div>
+                        <div class="flex justify-end mt-2">
+                            <a class="text-primary text-base font-semibold hover:underline" href="#">Esqueci a senha</a>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl text-xl shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]"
+                        type="submit">
+                        Login </button>
+
+                    <!-- Mensagem de erro -->
+<div id="erroLogin" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3 rounded-xl text-center"></div>
+                </form>
+
+                <!-- Footer Link -->
+                <div class="mt-10 text-center">
+                    <p class="text-slate-600 dark:text-slate-400 text-lg">Ainda não tem conta?<a
+                            class="text-primary font-bold hover:underline ml-1" href="./signUp.html">Criar Conta</a>
+                    </p>
+                </div>
+            </div>
+            <footer class="w-full px-6 py-8 text-center text-slate-400 dark:text-slate-600 text-xs">
+                <p>© 2026. Menu EasyAI - Todos os direitos reservados.</p>
+            </footer>
+</body>
+<script>
+
+    const cpfInput = document.getElementById('cpfInput')
+    cpfInput.addEventListener('input', () => {
+        let v = cpfInput.value.replace(/\D/g, '').substring(0, 11)
+
+        if (v.length > 9) v = v.replace(/^(\d{9})(\d+)/, '$1-$2')
+        if (v.length > 6) v = v.replace(/^(\d{6})(\d+)/, '$1.$2')
+        if (v.length > 3) v = v.replace(/^(\d{3})(\d+)/, '$1.$2')
+
+        cpfInput.value = v
+    })
+
+    function toggleSenha() {
+
+        const senha = document.getElementById("senha");
+        const icone = document.getElementById("iconeSenha");
+
+        if (senha.type === "password") {
+            senha.type = "text";
+            icone.textContent = "visibility_off";
+        } else {
+            senha.type = "password";
+            icone.textContent = "visibility";
+        }
+
+    }
+
+    function mostrarErro(msg) {
+        const el = document.getElementById("erroLogin");
+        el.textContent = msg;
+        el.classList.remove("hidden");
+    }
+
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // impede reload da página
+
+        const cpf = document.getElementById("cpfInput").value;
+        const senha = document.getElementById("senha").value;
+
+        try {
+            const response = await fetch("http://localhost:3000/api/usuarios/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    cpf: cpf,
+                    senha: senha
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                mostrarErro(data.erro || "Erro no login");
+                return;
+            }
+
+            // ✅ Salvar usuário na sessão
+            localStorage.setItem("usuario", JSON.stringify(data.usuario));
+
+            // ✅ Redirecionar para a página principal
+            window.location.href = "../index.html";
+
+        } catch (error) {
+            console.error(error);
+            mostrarErro("Erro ao conectar com o servidor");
+        }
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Criar Conta - Menu EasyAI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+
+    <link rel="shortcut icon" href="../public/images/icon-hamburguer.ico" type="image/x-icon">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display transition-colors duration-300">
+    <!-- Navigation Bar (Modified from Component) -->
+
+    <!--<div class="fixed top-0 left-0 right-0 z-50 px-4 md:px-20 lg:px-40 py-5">
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 bg-background-light/80 backdrop-blur-md px-6 py-3 rounded-xl shadow-sm">
+                <div class="flex items-center gap-3 text-primary">
+                    <span aria-hidden="true" class="material-symbols-outlined text-3xl font-bold">restaurant_menu</span>
+                    <h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">Menu
+                        EasyAI</h2>
+                </div>
+                <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+                    <div class="flex items-center gap-9">
+                        <a class="text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                            href="#">Cardápio</a>
+                        <a class="text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                            href="#">Recomendações</a>
+                        <a class="text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                            href="#">Meus Pedidos</a>
+                    </div>
+                </div>
+            </header>
+        </div> -->
+
+    <main class="flex-1 flex items-center justify-center p-6 @container">
+        <div
+            class="max-w-[1100px] w-full grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+            <div
+                class="hidden lg:flex flex-col justify-between p-12 bg-primary/5 dark:bg-primary/10 border-r border-slate-100 dark:border-slate-800">
+                <div class="space-y-6">
+                    <div class="inline-flex items-center justify-center p-3 bg-primary/20 text-primary rounded-2xl">
+                        <span class="material-symbols-outlined text-4xl">auto_awesome</span>
+                    </div>
+                    <h1 class="text-4xl font-black text-slate-900 dark:text-slate-100 leading-tight"> Revolucione sua
+                        <span class="text-primary">experiência gastronômica</span> com IA.
+                    </h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                        Junte-se a milhares de clientes que usam o Menu EasyAI para fazer pedidos de forma rápida e
+                        descobrir novas opções do cardápio.</p>
+                </div>
+                <div class="relative group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-primary to-orange-400 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <div
+                        class="relative bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-full bg-slate-200 overflow-hidden">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="Portrait of a professional restaurant manager"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBo2METcLoKZBDN2ZGhOtG5MYRCL5sbr4tBGm5Q5QT2bxAQyF_D_tbERACtxn2gp339VeVEM-DfTnjK8D97tZGiX2ZuuPjGrIrjYfiYbvLkn3l1ktzUPiMYgWmkw1tTkGePhYWGQPV3sbRdV-_GRG3sHUj62EfP4g7Aic3Z2_ObTcxAiq11Zj_nL2Yb6sp6ta83iPzNlvEjBAy9sotFHW-l9owNCRpDEn4xYd8zo94EYM2szKB82XYKK1Sb6pXxAsIGqJOySbZIIM" />
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-slate-100">Fernando Silva</p>
+                                <p class="text-xs text-slate-500">Cliente, San Pietro Restaurante</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 italic text-sm">
+                            "O Menu EasyAI facilitou muito meu pedido. Consegui escolher o prato rapidamente e as
+                            recomendações foram ótimas." </p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex -space-x-3">
+                    </div>
+                </div>
+            </div>
+            <div class="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-100">Crie sua Conta</h2>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Ao criar sua conta você garante 15% de desconto
+                        no primeiro pedido.
+                    </p>
+                </div>
+
+                <form class="space-y-4" id="formulario" method="post" action="">
+                    <div class="space-y-1.5">
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">CPF</label>
+                        <div class="relative group">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">mail</span>
+                            <input
+                                class="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                                placeholder="123.456.789-10" type="text" id="cpfInput" required />
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Data de
+                            Nascimento</label>
+                        <div class="relative group">
+
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                                calendar_today </span>
+
+                            <input
+                                class="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                                placeholder="01/01/2000" type="text" id="dataInput" required />
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Senha</label>
+                        <div class="relative group">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
+                                lock</span>
+                            <input id="senha"
+                                class="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                                placeholder="••••••••" type="password" required />
+                            <button type="button" onclick="toggleSenha()"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                                <span id="iconeSenha" class="material-symbols-outlined text-xl">
+                                    visibility </span></button>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Confirmar
+                            Senha</label>
+                        <div class="relative group">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">lock_reset</span>
+                            <input id="confirmsenha"
+                                class="w-full pl-12 pr-4 py-3.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                                placeholder="••••••••" type="password" required />
+                            <button type="button" onclick="toggleSenha2()"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                                <span id="iconeSenha2" class="material-symbols-outlined text-xl">
+                                    visibility </span></button>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 py-2">
+                        <input
+                            class="mt-1 w-4 h-4 text-primary bg-slate-100 border-slate-300 rounded focus:ring-primary focus:ring-2"
+                            type="checkbox" />
+                        <label class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Ao criar uma conta, eu concorda com nossos <a class="text-primary hover:underline"
+                                href="#">Termos de Serviço</a> e <a class="text-primary hover:underline"
+                                href="#">Política de Privacidade.</a>.
+                        </label>
+                    </div>
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+                        type="submit">
+                        Criar Conta <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+
+                    <!-- Mensagem de erro -->
+                    <div id="erroCadastro"
+                        class="hidden bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3 rounded-xl text-center">
+                    </div>
+                </form>
+                <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
+                    <span class="text-slate-500 dark:text-slate-400 text-sm hidden sm:inline">Já tem conta?</span>
+                    <a href="./signIn.html"
+                        class="px-4 py-2 text-primary font-bold text-sm hover:bg-primary/10 rounded-xl transition-all">Login</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="w-full px-6 py-8 text-center text-slate-400 dark:text-slate-600 text-xs">
+        <p>© 2026. Menu EasyAI - Todos os direitos reservados.</p>
+    </footer>
+</body>
+<script>
+
+    const cpfInput = document.getElementById('cpfInput')
+    const dataInput = document.getElementById("dataInput")
+    const senha = document.getElementById("senha");
+    const confirmsenha = document.getElementById("confirmsenha");
+    function mostrarErro(msg) {
+        const el = document.getElementById("erroCadastro");
+        el.textContent = msg;
+        el.classList.remove("hidden");
+    }
+
+    const formulario = document.getElementById("formulario")
+
+    dataInput.addEventListener('input', () => {
+        let v = dataInput.value.replace(/\D/g, '').substring(0, 8)
+
+        if (v.length > 4) v = v.replace(/^(\d{2})(\d{2})(\d+)/, '$1/$2/$3')
+        else if (v.length > 2) v = v.replace(/^(\d{2})(\d+)/, '$1/$2')
+
+        dataInput.value = v
+    })
+
+    function calcIdade(dataNascimentoStr) {
+        // dataNascimentoStr está no formato dd/mm/yyyy
+        const [diaStr, mesStr, anoStr] = dataNascimentoStr.split('/');
+        const dia = parseInt(diaStr, 10);
+        const mes = parseInt(mesStr, 10) - 1; // JS: meses 0-11
+        const ano = parseInt(anoStr, 10);
+
+        const hoje = new Date();
+        const nascimento = new Date(ano, mes, dia);
+
+        let idade = hoje.getFullYear() - nascimento.getFullYear();
+
+        // Verifica se ainda não fez aniversário este ano
+        const mesDiff = hoje.getMonth() - nascimento.getMonth();
+        const diaDiff = hoje.getDate() - nascimento.getDate();
+        if (mesDiff < 0 || (mesDiff === 0 && diaDiff < 0)) {
+            idade--;
+        }
+
+        return idade;
+    }
+
+    cpfInput.addEventListener('input', () => {
+        let v = cpfInput.value.replace(/\D/g, '').substring(0, 11)
+
+        if (v.length > 9) v = v.replace(/^(\d{9})(\d+)/, '$1-$2')
+        if (v.length > 6) v = v.replace(/^(\d{6})(\d+)/, '$1.$2')
+        if (v.length > 3) v = v.replace(/^(\d{3})(\d+)/, '$1.$2')
+
+        cpfInput.value = v
+    })
+
+    function toggleSenha() {
+
+        const icone = document.getElementById("iconeSenha");
+
+        if (senha.type === "password") {
+            senha.type = "text";
+            icone.textContent = "visibility_off";
+        } else {
+            senha.type = "password";
+            icone.textContent = "visibility";
+        }
+
+    }
+
+    function toggleSenha2() {
+
+        const icone = document.getElementById("iconeSenha2");
+
+        if (confirmsenha.type === "password") {
+            confirmsenha.type = "text";
+            icone.textContent = "visibility_off";
+        } else {
+            confirmsenha.type = "password";
+            icone.textContent = "visibility";
+        }
+
+    }
+
+    formulario.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (confirmsenha.value !== senha.value) {
+            mostrarErro("As senhas não coincidem. Verifique e tente novamente.");
+            senha.value = "";
+            confirmsenha.value = "";
+            return;
+        }
+
+        let idadeCalculada = 0;
+        if (dataInput.value.length === 10) {
+            idadeCalculada = calcIdade(dataInput.value)
+        }
+
+        const data = {
+            cpf: cpfInput.value,
+            senha: confirmsenha.value,
+            idade: idadeCalculada
+        };
+
+        try {
+            const response = await fetch("http://127.0.0.1:3000/api/usuarios", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                mostrarErro(result.erro || "Erro ao criar conta");
+                return;
+            }
+
+            // ✅ Redirecionar para login após cadastro com sucesso
+            window.location.href = "./signIn.html";
+
+        } catch (err) {
+            console.error(err);
+            mostrarErro("Erro ao conectar com o servidor");
+        }
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Carrinho - Menu EasyAI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <link rel="shortcut icon" href="./public/images/icon-hamburguer.ico" type="image/x-icon">
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        display: ["Public Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+
+    <div class="left-0 right-0 z-50 px-4 md:px-20 lg:px-40 py-5">
+        <header
+            class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/20 bg-background-light/80 backdrop-blur-md px-6 py-3 rounded-xl shadow-sm">
+            <a href="index.html" class="flex items-center gap-3 text-primary">
+                <img src="./public/logo.png" alt="Logo" class="h-11 w-auto">
+            </a>
+            <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+                <div class="flex items-center gap-9">
+                    <a class="text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors"
+                        href="index.html">Cardápio</a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <div class="mb-8">
+            <h2 class="text-4xl font-black tracking-tight">Carrinho</h2>
+            <p class="text-slate-500 mt-2 font-medium">Reveja os items antes de confirmar a compra</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <div class="lg:col-span-8 space-y-4" id="cart-items-container">
+            </div>
+
+            <div class="lg:col-span-4 lg:sticky lg:top-24">
+
+                <div
+                    class="bg-white dark:bg-zinc-900 rounded-xl shadow-lg border border-slate-100 dark:border-zinc-800 p-6">
+
+                    <h3 class="text-xl font-bold mb-6">Resumo do Pedido</h3>
+
+                    <div class="space-y-4 mb-6">
+
+                        <div class="flex justify-between text-slate-600">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal">R$ 0,00</span>
+                        </div>
+
+                        <div class="flex justify-between text-slate-600">
+                            <span>Taxa de serviço</span>
+                            <span>R$ 2,00</span>
+                        </div>
+
+                        <!-- Linha de desconto por avaliação (oculta até verificar) -->
+                        <div id="linhaDesconto" class="hidden justify-between text-green-600 font-semibold">
+                            <span>🎉 Desconto avaliação (10%)</span>
+                            <span id="valorDesconto">-R$ 0,00</span>
+                        </div>
+
+                        <div class="border-t pt-4 flex justify-between items-center">
+                            <span class="text-lg font-bold">Total</span>
+                            <span class="text-2xl font-black text-primary" id="summary-total-price">R$ 0,00</span>
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all shadow-md">
+                        Confirmar Pedido
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        function getCarrinho() {
+            return JSON.parse(localStorage.getItem('carrinho') || '[]');
+        }
+        function salvarCarrinho(c) {
+            localStorage.setItem('carrinho', JSON.stringify(c));
+        }
+
+        // Variável global para recompensa
+        window.recompensaAtiva = null;
+
+        function renderizar() {
+            const carrinho = getCarrinho();
+            const container = document.getElementById('cart-items-container');
+
+            if (carrinho.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-20 text-slate-400">
+                        <span class="material-symbols-outlined" style="font-size:64px;">shopping_cart</span>
+                        <p class="text-xl font-bold mt-4">Seu carrinho está vazio</p>
+                        <a href="index.html" class="mt-4 inline-block text-primary font-semibold hover:underline">← Voltar ao cardápio</a>
+                    </div>`;
+                atualizarResumo(0);
+                return;
+            }
+
+            container.innerHTML = carrinho.map((item, idx) => `
+                <div class="cart-item bg-white dark:bg-zinc-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-zinc-800 flex flex-col sm:flex-row gap-4" data-idx="${idx}">
+                    <div class="w-full sm:w-32 h-32 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
+                        <img class="w-full h-full object-cover" src="${item.imagem}" alt="${item.nome}" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="item-name text-lg font-bold">${item.nome}</h3>
+                                <p class="text-sm text-slate-500">${item.desc || ''}</p>
+                            </div>
+                            <button class="remove-item-btn text-slate-400 hover:text-red-500 ml-2">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="item-price text-xl font-bold text-primary">
+                                R$ ${(item.preco * item.quantidade).toFixed(2)}
+                            </span>
+                            <div class="flex items-center gap-4 bg-slate-50 dark:bg-zinc-800 p-1 rounded-full border border-slate-200 dark:border-zinc-700">
+                                <button class="decrement-qty w-8 h-8 flex items-center justify-center rounded-full hover:bg-white transition-all">
+                                    <span class="material-symbols-outlined text-sm">remove</span>
+                                </button>
+                                <span class="item-quantity font-bold w-4 text-center">${item.quantidade}</span>
+                                <button class="increment-qty w-8 h-8 flex items-center justify-center rounded-full hover:bg-white transition-all">
+                                    <span class="material-symbols-outlined text-sm">add</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const subtotal = carrinho.reduce((acc, i) => acc + i.preco * i.quantidade, 0);
+            atualizarResumo(subtotal);
+        }
+
+        function atualizarResumo(subtotal) {
+            const taxa = 2;
+            let desconto = 0;
+
+            if (window.recompensaAtiva) {
+                desconto = subtotal * 0.10;
+                document.getElementById('linhaDesconto').classList.remove('hidden');
+                document.getElementById('linhaDesconto').classList.add('flex');
+                document.getElementById('valorDesconto').textContent = `-R$ ${desconto.toFixed(2)}`;
+            } else {
+                document.getElementById('linhaDesconto').classList.add('hidden');
+                document.getElementById('linhaDesconto').classList.remove('flex');
+            }
+
+            document.getElementById('summary-subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+            document.getElementById('summary-total-price').textContent = `R$ ${(subtotal + taxa - desconto).toFixed(2)}`;
+        }
+
+        document.getElementById('cart-items-container').addEventListener('click', (e) => {
+            const itemEl = e.target.closest('.cart-item');
+            if (!itemEl) return;
+            const idx = parseInt(itemEl.dataset.idx);
+            let carrinho = getCarrinho();
+
+            if (e.target.closest('.increment-qty')) {
+                carrinho[idx].quantidade++;
+            } else if (e.target.closest('.decrement-qty')) {
+                carrinho[idx].quantidade--;
+                if (carrinho[idx].quantidade <= 0) carrinho.splice(idx, 1);
+            } else if (e.target.closest('.remove-item-btn')) {
+                carrinho.splice(idx, 1);
+            } else return;
+
+            salvarCarrinho(carrinho);
+            renderizar();
+        });
+
+        renderizar();
+
+        // Verificar recompensa disponível ao carregar
+        async function verificarRecompensa() {
+            const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+            if (!usuario.pk_cpf_usuario) return;
+            try {
+                const res = await fetch(`http://localhost:3000/api/avaliacoes/recompensa/${usuario.pk_cpf_usuario}`);
+                const data = await res.json();
+                if (data.tem_recompensa) {
+                    window.recompensaAtiva = data;
+                    const carrinho = getCarrinho();
+                    const subtotal = carrinho.reduce((acc, i) => acc + i.preco * i.quantidade, 0);
+                    atualizarResumo(subtotal);
+                }
+            } catch (e) {
+                console.warn('Erro ao verificar recompensa:', e);
+            }
+        }
+        verificarRecompensa();
+
+        // =====================
+        // CLIMA AUTOMÁTICO
+        // =====================
+        function wmoParaClima(code) {
+            if (code === 0) return 'ensolarado';
+            if (code <= 3) return 'nublado';
+            if (code <= 67) return 'chuvoso';
+            if (code <= 77) return 'frio';
+            if (code <= 82) return 'chuvoso';
+            return 'nublado';
+        }
+
+        async function detectarClima() {
+            const CACHE_MS = 30 * 60 * 1000; // 30 minutos
+            const climaCached = localStorage.getItem('clima_atual');
+            const climaTs = parseInt(localStorage.getItem('clima_ts') || '0');
+            if (climaCached && (Date.now() - climaTs) < CACHE_MS) {
+                return climaCached;
+            }
+
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) return resolve(climaCached || 'nublado');
+                navigator.geolocation.getCurrentPosition(
+                    async (pos) => {
+                        try {
+                            const { latitude, longitude } = pos.coords;
+                            const res = await fetch(
+                                `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+                            );
+                            const data = await res.json();
+                            const clima = wmoParaClima(data.current_weather.weathercode);
+                            localStorage.setItem('clima_atual', clima);
+                            localStorage.setItem('clima_ts', Date.now().toString());
+                            resolve(clima);
+                        } catch {
+                            resolve(climaCached || 'nublado');
+                        }
+                    },
+                    () => resolve(climaCached || 'nublado')
+                );
+            });
+        }
+
+        detectarClima();
+    </script>
+
+    <!-- MODAL AVALIAÇÃO -->
+    <div id="modalAvaliacao"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 text-center relative">
+            <button onclick="fecharAvaliacao()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+            <h1 class="text-2xl font-bold mb-2">Avalie sua experiência</h1>
+            <p class="text-gray-500 text-sm mb-8">Escolha de 1 a 3 estrelas</p>
+            <form id="reviewForm" class="space-y-8">
+                <style>
+                    .star-rating {
+                        display: flex;
+                        flex-direction: row-reverse;
+                        justify-content: center;
+                        gap: 1rem;
+                    }
+
+                    .star-rating input {
+                        display: none;
+                    }
+
+                    .star-rating label {
+                        cursor: pointer;
+                        color: #d1d5db;
+                        transition: color 0.2s;
+                    }
+
+                    .star-rating input:checked~label,
+                    .star-rating label:hover,
+                    .star-rating label:hover~label {
+                        color: #ec5b13;
+                    }
+                </style>
+                <div class="star-rating">
+                    <input id="star3" name="rating" type="radio" value="3">
+                    <label for="star3"><svg class="w-16 h-16 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg></label>
+                    <input id="star2" name="rating" type="radio" value="2">
+                    <label for="star2"><svg class="w-16 h-16 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg></label>
+                    <input id="star1" name="rating" type="radio" value="1">
+                    <label for="star1"><svg class="w-16 h-16 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg></label>
+                </div>
+                <button type="submit"
+                    class="w-full bg-primary text-white font-bold py-4 rounded-2xl hover:bg-[#d35a1f] transition">
+                    Enviar Avaliação
+                </button>
+                <p id="msgAvaliacao" class="text-sm mt-2"></p>
+            </form>
+        </div>
+    </div>
+    <!-- FIM MODAL AVALIAÇÃO -->
+
+    <script>
+        let pedidoSalvoId = null;
+
+        function fecharAvaliacao() {
+            document.getElementById('modalAvaliacao').classList.add('hidden');
+        }
+
+        // Confirmar Pedido → salvar no BD → abrir modal avaliação
+        document.querySelector('button.w-full.bg-primary').addEventListener('click', async () => {
+            const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+            if (carrinho.length === 0) return;
+
+            const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+            if (!usuario.pk_cpf_usuario) {
+                alert('Faça login para confirmar o pedido');
+                window.location.href = 'Auth/signIn.html';
+                return;
+            }
+
+            // Buscar clima em tempo real antes de confirmar
+            const climaAtual = await detectarClima();
+
+            try {
+                const response = await fetch('http://localhost:3000/api/pedidos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cpf: usuario.pk_cpf_usuario,
+                        itens: carrinho.map(i => ({
+                            id: i.id,
+                            nome: i.nome,
+                            preco: i.preco,
+                            quantidade: i.quantidade
+                        })),
+                        clima: climaAtual,
+                        pessoas: 1,
+                        promocao: 0
+                    })
+                });
+                const data = await response.json();
+                pedidoSalvoId = data.pedido_id;
+
+                // Marcar recompensa como usada se havia desconto
+                if (window.recompensaAtiva) {
+                    await fetch(`http://localhost:3000/api/avaliacoes/recompensa/${window.recompensaAtiva.id}/usar`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' }
+                    }).catch(e => console.warn('Erro ao usar recompensa:', e));
+                    window.recompensaAtiva = null;
+                }
+
+                // Atualizar rec_aceita = 1 para produtos recomendados pela IA que foram pedidos
+                const idsCarrinho = carrinho.map(i => i.id).filter(Boolean);
+                if (idsCarrinho.length > 0) {
+                    fetch('http://localhost:3000/api/feedback', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ cpf: usuario.pk_cpf_usuario, produtos: idsCarrinho })
+                    }).catch(err => console.warn('Erro ao enviar feedback IA:', err));
+                }
+
+            } catch (err) {
+                console.error('Erro ao salvar pedido:', err);
+            }
+
+            document.getElementById('modalAvaliacao').classList.remove('hidden');
+        });
+
+        // Enviar avaliação
+        document.getElementById('reviewForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const rating = document.querySelector('input[name="rating"]:checked');
+            const msg = document.getElementById('msgAvaliacao');
+
+            if (!rating) {
+                msg.textContent = 'Selecione uma avaliação ⭐';
+                msg.style.color = 'red';
+                return;
+            }
+
+            const btnEnviar = this.querySelector('button[type="submit"]');
+            btnEnviar.disabled = true;
+            btnEnviar.textContent = 'Enviando...';
+
+            const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+            const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+
+            try {
+                const resAval = await fetch('http://localhost:3000/api/avaliacoes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cpf: usuario.pk_cpf_usuario,
+                        nota: parseInt(rating.value)
+                    })
+                });
+                const dataAval = await resAval.json();
+
+                if (dataAval.recompensa) {
+                    msg.innerHTML = `
+                        <div class="bg-orange-50 border-2 border-primary rounded-2xl p-4 mt-2">
+                            <p class="text-2xl mb-1">🎉</p>
+                            <p class="font-bold text-primary text-lg">Parabéns! Você ganhou um desconto!</p>
+                            <p class="text-slate-600 text-sm mt-1">Você completou <strong>${dataAval.total_avaliacoes} avaliações</strong> e ganhou <strong>${dataAval.desconto}% de desconto</strong> no seu próximo pedido!</p>
+                            <p class="text-xs text-slate-400 mt-2">O desconto foi registrado na sua conta automaticamente.</p>
+                        </div>`;
+                    setTimeout(() => {
+                        localStorage.removeItem('carrinho');
+                        fecharAvaliacao();
+                        window.location.href = 'index.html';
+                    }, 4000);
+                } else {
+                    const faltam = dataAval.proxima_recompensa || '';
+                    msg.innerHTML = `
+                        <p class="text-green-600 font-semibold">Obrigado pela avaliação! ⭐</p>
+                        ${faltam ? `<p class="text-slate-400 text-xs mt-1">Faltam <strong>${faltam} avaliações</strong> para ganhar 10% de desconto!</p>` : ''}`;
+                    setTimeout(() => {
+                        localStorage.removeItem('carrinho');
+                        fecharAvaliacao();
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Erro ao enviar avaliação:', err);
+                msg.textContent = 'Avaliação enviada!';
+                msg.style.color = 'green';
+                setTimeout(() => {
+                    localStorage.removeItem('carrinho');
+                    fecharAvaliacao();
+                    window.location.href = 'index.html';
+                }, 1500);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
